@@ -1,3 +1,2 @@
-console.log("Game starting...");
-
-// Temporary placeholder — we will add Phaser next
+console.log("Emotion Engine Game Booted");
+document.body.insertAdjacentHTML("beforeend", "<p>Game script loaded ✅</p>");
