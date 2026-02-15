@@ -1,0 +1,12 @@
+{
+  "name": "emotionengine",
+  "version": "1.0.0",
+  "description": "Emotion Engine Project",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^12.9.0"
+  }
+}
