@@ -1,0 +1,43 @@
+# NeuroMaze project-specific ignores
+emotion_detector/models/
+
+# Ignore Virtual Environment
+.venv/
+
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+MemoryCaptures/
+Assets/
+ProjectSettings/
+.plastic/
+.vscode/
+Packages/
+UserSettings/
+ignore.conf
+
+# Visual Studio
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+
+.cursorignore
+
+reqOG.txt
+
+emotion_detector/__pycache__
+ai_backend/__pycache__

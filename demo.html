@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroMaze | AI Live Monitor</title>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 2px solid #334155;
+            width: 400px;
+        }
+        h1 { font-size: 1.5rem; color: #38bdf8; margin-bottom: 1rem; }
+        .data-box { margin: 20px 0; padding: 15px; border-radius: 10px; background: #0f172a; }
+        .label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .value { font-size: 2rem; font-weight: bold; display: block; margin-top: 5px; }
+        
+        /* Dynamic Colors */
+        .emo-text { color: #f472b6; } /* Pink for Emotion */
+        .diff-easy { color: #4ade80; } /* Green */
+        .diff-normal { color: #60a5fa; } /* Blue */
+        .diff-hard { color: #f87171; } /* Red */
+        
+        .feedback { font-size: 0.9rem; color: #cbd5e1; font-style: italic; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🧠 NEUROMAZE MONITOR</h1>
+        
+        <div class="data-box">
+            <span class="label">Detected Emotion</span>
+            <span id="emotion" class="value emo-text">WAITING...</span>
+        </div>
+
+        <div class="data-box">
+            <span class="label">System Difficulty</span>
+            <span id="difficulty" class="value">NORMAL</span>
+        </div>
+
+        <p id="feedback" class="feedback">Connecting to AI Backend...</p>
+    </div>
+
+    <script>
+        async function updateStats() {
+            try {
+                // Fetch from your FastAPI
+                const response = await fetch('http://127.0.0.1:8000/detect-emotion/');
+                const data = await response.json();
+
+                // Update UI
+                const emoEl = document.getElementById('emotion');
+                const diffEl = document.getElementById('difficulty');
+                const feedEl = document.getElementById('feedback');
+
+                emoEl.innerText = data.emotion.toUpperCase();
+                diffEl.innerText = data.difficulty.toUpperCase();
+                feedEl.innerText = data.feedback;
+
+                // Change Difficulty Color based on value
+                diffEl.className = 'value'; // reset
+                if (data.difficulty === "Easy") diffEl.classList.add('diff-easy');
+                else if (data.difficulty === "Hard") diffEl.classList.add('diff-hard');
+                else diffEl.classList.add('diff-normal');
+
+            } catch (err) {
+                document.getElementById('feedback').innerText = "Backend Offline!";
+            }
+        }
+
+        // AUTO-REFRESH every 1000ms (1 second)
+        setInterval(updateStats, 1000);
+    </script>
+</body>
+</html>
