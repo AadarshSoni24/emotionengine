@@ -1,2 +1,0 @@
-# emotionengine
- EmotionEngine Hackathon Project
